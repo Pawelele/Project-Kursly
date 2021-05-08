@@ -10,8 +10,8 @@
         <link rel="stylesheet" href="style.css" type="text/css">
 
         <!-- Bootstrap -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
         <script src="bootstrap/js/bootstrap.min.js"></script>
         <!-- Bootstrap end -->
 
@@ -19,8 +19,65 @@
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
         <!-- Czcionka end -->
+
+        <script src="js/popup.js" defer></script>
     </head>
     <body>
+        <div class="all">
+            <div class="register-popup">
+                <div class="topbar">Rejestracja<div class="exit">x</div></div>
+                <img src="img/logo.png">
+                <form action="zaloguj.php" method="POST">
+                    <input type="text" class="register-input" id="reg1" name="name" placeholder="Imie">
+                    <input type="text" class="register-input" id="reg2" name="surname" placeholder="Nazwisko"><br>
+                    <input type="text" class="register-input" id="reg3" name="email" placeholder="Email"><br>
+                    <input type="password" class="register-input" id="reg4" name="password" placeholder="Hasło">
+                    <input type="password" class="register-input" id="reg5" name="password" placeholder="Potwierdź hasło"><br>
+                    <input type="text" class="register-input" id="reg6" name="street" placeholder="Ulica">
+                    <input type="number" class="register-input" id="reg7" name="nr" placeholder="Nr"><br>
+                    <input type="text" class="register-input" id="reg8" name="postcode" placeholder="Kod pocztowy">
+                    <input type="text" class="register-input" id="reg9" name="city" placeholder="Miasto"><br>
+                    <input type="submit" class="submit_button" value="Zarejestruj">
+                </form>
+            </div>
+            <div class="sekcja1_all">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-4">
+                            <div class="sekcja1_lewo">
+                                <a href="/"><img src="img/logo.png"></a>
+                            </div>
+                        </div>
+                        <div class="col-xl-8">
+                            <div class="sekcja1_prawo">
+                                <div class="button" id="register">Rejestracja</div>
+                                <div class="button" id="login">Logowanie</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="sekcja2_all">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-12">
+                            <div class="sekcja2">
+                                <span>Kolejna platforma z kursami,<br> ale... lepsza.</span>
+                            </div>
+                            <div class="sekcja2_button">
+                                <div class="button_pink" id="register">Zarejestruj się!</div>
+                            </div>
+                            <div class="sekcja2_img">
+                                <img src="img/main_img.png">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
 
 
     </body>
