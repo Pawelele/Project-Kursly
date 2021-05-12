@@ -23,23 +23,34 @@
         <script src="js/popup.js" defer></script>
     </head>
     <body>
+        <div class="register-popup">
+            <div class="topbar">Rejestracja<div class="exit-register">x</div></div>
+            <img src="img/logo.png">
+            <form action="register.php" method="POST">
+                <input type="text" class="popup-input" id="reg1" name="name" placeholder="Imie">
+                <input type="text" class="popup-input" id="reg2" name="surname" placeholder="Nazwisko"><br>
+                <input type="text" class="popup-input" id="reg3" name="email" placeholder="Email"><br>
+                <input type="password" class="popup-input" id="reg4" name="password" placeholder="Hasło">
+                <input type="password" class="popup-input" id="reg5" name="password" placeholder="Potwierdź hasło"><br>
+                <input type="text" class="popup-input" id="reg6" name="street" placeholder="Ulica">
+                <input type="number" class="popup-input" id="reg7" name="nr" placeholder="Nr"><br>
+                <input type="text" class="popup-input" id="reg8" name="postcode" placeholder="Kod pocztowy">
+                <input type="text" class="popup-input" id="reg9" name="city" placeholder="Miasto"><br>
+                <input type="submit" class="submit_button" value="Zarejestruj">
+            </form>
+        </div>
+
+        <div class="login-popup">
+            <div class="topbar">Logowanie<div class="exit-login">x</div></div>
+            <img src="img/logo.png">
+            <form action="login.php" method="POST">
+                <input type="text" class="popup-input" id="log1" name="name" placeholder="Email"><br>
+                <input type="password" class="popup-input" id="log2" name="password" placeholder="Hasło"><br>
+                <input type="submit" class="submit_button" id="submit_login" value="Zaloguj">
+            </form>
+        </div>
+
         <div class="all">
-            <div class="register-popup">
-                <div class="topbar">Rejestracja<div class="exit">x</div></div>
-                <img src="img/logo.png">
-                <form action="zaloguj.php" method="POST">
-                    <input type="text" class="register-input" id="reg1" name="name" placeholder="Imie">
-                    <input type="text" class="register-input" id="reg2" name="surname" placeholder="Nazwisko"><br>
-                    <input type="text" class="register-input" id="reg3" name="email" placeholder="Email"><br>
-                    <input type="password" class="register-input" id="reg4" name="password" placeholder="Hasło">
-                    <input type="password" class="register-input" id="reg5" name="password" placeholder="Potwierdź hasło"><br>
-                    <input type="text" class="register-input" id="reg6" name="street" placeholder="Ulica">
-                    <input type="number" class="register-input" id="reg7" name="nr" placeholder="Nr"><br>
-                    <input type="text" class="register-input" id="reg8" name="postcode" placeholder="Kod pocztowy">
-                    <input type="text" class="register-input" id="reg9" name="city" placeholder="Miasto"><br>
-                    <input type="submit" class="submit_button" value="Zarejestruj">
-                </form>
-            </div>
             <div class="sekcja1_all">
                 <div class="container">
                     <div class="row">

@@ -4,14 +4,14 @@ body
     background-color: #DDDDDD !important;
     font-family: 'Inter', sans-serif !important;
 }
+.all
+{
+    /* filter: blur(8px);
+    -webkit-filter: blur(8px); */
+}
 .container
 {
     max-width: 1640px !important;
-}
-.all
-{
-    height: 100vh;
-    width: 100vw;
 }
 .sekcja1_lewo img
 {
@@ -68,8 +68,9 @@ body
 }
 .button:hover, .button_pink:hover
 {
-    transform: scale(1.05);
+    transform: scale(1.04);
     transition: 0.5s;
+    cursor:default;
 }
 .register-popup
 {
@@ -79,11 +80,31 @@ body
     width: 600px;
     background-color: #FFFFFF;
     text-align: center;
-    top: 20%;
-    left:35%;
     z-index: 99;
     border-radius: 10px;
     box-shadow: 0px 10px 8px #00000029;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+.login-popup
+{
+    display: none;
+    position: absolute;
+    height: 600px;
+    width: 600px;
+    background-color: #FFFFFF;
+    text-align: center;
+    z-index: 99;
+    border-radius: 10px;
+    box-shadow: 0px 10px 8px #00000029;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
 }
 .topbar
 {
@@ -97,13 +118,19 @@ body
     font-size: 20px;
     font-weight: 400;
 }
-.exit
+.exit-register, .exit-login
 {
     color:white;
     font-size: 27px;
+    width:20px;
+    float:right;
     text-align: right;
     margin-right: 10px;
-    margin-top: -43px;
+    margin-left: -30px;
+}
+.exit-register:hover, .exit-login:hover
+{
+    cursor:pointer;
 }
 .register-popup img
 {
@@ -113,7 +140,15 @@ body
     margin: 0 auto;
     margin-top: 21px;
 }
-.register-input
+.login-popup img
+{
+    width: 124px;
+    height: 72px;
+    display: block;
+    margin: 0 auto;
+    margin-top: 51px;
+}
+.popup-input
 {
     background-color: #F0F0F0;
     border: 2px solid #5D5D5D;
@@ -172,3 +207,18 @@ body
     width: 282px;
     margin-left: 15px;
 }
+#log1
+{
+    margin-top: 57px;
+    width: 322px;
+}
+#log2
+{
+    margin-top: 31px;
+    width: 322px;
+}
+#submit_login
+{
+    margin-top: 62px;
+}
+
