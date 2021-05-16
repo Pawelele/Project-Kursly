@@ -6,8 +6,7 @@ body
 }
 .all
 {
-    /* filter: blur(8px);
-    -webkit-filter: blur(8px); */
+    height: 100vh !important;
 }
 .container
 {
@@ -39,7 +38,7 @@ body
 {
     text-align: center;
     margin-top: 70px;
-    font-size: 68px;
+    font-size: 60px;
     font-weight: 300;
     letter-spacing: 2px;
 }
@@ -66,12 +65,44 @@ body
     margin-left: auto;
     margin-right: auto;
 }
-.button:hover, .button_pink:hover
+.button:hover, .button_pink:hover, .login_again:hover
 {
     transform: scale(1.04);
     transition: 0.5s;
     cursor:default;
 }
+.login_error
+{
+    display: none;
+    position: absolute;
+    height: 300px;
+    width: 600px;
+    background-color: #FFFFFF;
+    text-align: center;
+    z-index: 99;
+    border-radius: 10px;
+    box-shadow: 0px 10px 8px #00000029;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+.login_again
+{
+    width: 208px;
+    height: 67px;
+    line-height: 67px;
+    background: #E432A9;
+    box-shadow: 0px 10px 9px #00000029;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 20px;
+    color: white;
+    margin: 0 auto;
+    margin-top:90px;
+}
+
 .register-popup
 {
     display: none;
@@ -118,7 +149,7 @@ body
     font-size: 20px;
     font-weight: 400;
 }
-.exit-register, .exit-login
+.exit-register, .exit-login, .exit-error
 {
     color:white;
     font-size: 27px;
@@ -128,7 +159,7 @@ body
     margin-right: 10px;
     margin-left: -30px;
 }
-.exit-register:hover, .exit-login:hover
+.exit-register:hover, .exit-login:hover, .exit-error:hover
 {
     cursor:pointer;
 }
@@ -169,7 +200,7 @@ body
     color: #FFFFFF;
     font-size: 20px;
     border: none;
-    margin-top: 40px;
+    margin-top: 18px;
 }
 #reg1,#reg4
 {
@@ -217,8 +248,22 @@ body
     margin-top: 31px;
     width: 322px;
 }
+#check-terms
+{
+    margin-top: 15px;
+}
 #submit_login
 {
     margin-top: 62px;
 }
 
+/* Validation things */
+form input.error
+{
+    border-color: tomato !important;
+}
+.form input.success
+{
+    border-color: green !important;
+}
+/* Validation things */
