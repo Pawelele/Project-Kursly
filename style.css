@@ -267,3 +267,139 @@ form input.error
     border-color: green !important;
 }
 /* Validation things */
+
+
+
+
+
+/* Panel.php css */
+.sekcja1_all2
+{
+    height: 205px;
+    background-color: #A2A2A2;
+    margin-bottom: 140px;
+}
+.sekcja1_all2 img
+{
+    width: 243px;
+    height: 141px;
+}
+.sekcja1_lewo2
+{
+    height: 205px;
+    line-height: 205px;
+}
+.sekcja1_prawo2
+{
+    height: 205px;
+}
+.menu
+{
+    position: absolute;
+    right: 0px;
+    margin-top: 42px;
+}
+.menu a
+{
+    width: 729px;
+    margin-right: 67px;
+    font-size: 23px;
+    color: #262626;
+    font-weight: 600;
+    margin-left: 50px;
+}
+.pink
+{
+    background-color: #CC36B5;
+    height: 10px;
+}
+.user_panel
+{
+    width: 391px;
+    height: 144px;
+    background-color: #FAFAFA;
+    box-shadow: 7px 4px 6px #00000029;
+    border-radius: 10px;
+    position: absolute;
+    right: 90px;
+    top: 140px;
+    text-align: center;
+}
+#user_panel_name
+{
+    margin-top: 31px;
+    font-size: 22px;
+    font-weight: 600;
+}
+#user_panel_cash
+{
+    font-size: 21px;
+    font-weight: 400;
+    margin-top: -5px;
+}
+
+
+.course_list
+{
+    margin: 0 auto;
+    float:none;
+    width: 966px;
+    height: 174px;
+    background-color: #FFFFFF;
+    box-shadow: 6px 4px 6px #00000029;
+    border-radius: 10px;
+    margin-top: 62px;
+
+}
+.course_list img
+{
+    width: 120px;
+    height:120px;
+    margin-left: 20px;
+}
+#course_list_title
+{
+    font-size: 26px;
+    font-weight: 600;
+    color: #262626;
+}
+#course_list_price
+{
+    font-size: 31px;
+    font-weight: 600;
+    color: #262626;
+}
+.sekcja2_all2
+{
+
+
+
+}
+.sekcja2_lewo2
+{
+    line-height: 174px;
+}
+.sekcja2_srodek2
+{
+    line-height: 174px;
+}
+.sekcja2_prawo2
+{
+    line-height: 174px;
+}
+.buy
+{
+    position: absolute;
+    right: -15px;
+    bottom: -15px;
+    width: 171px;
+    height: 67px;
+    background: #00791C;
+    box-shadow: 6px 4px 6px #00000029;
+    border-radius: 10px;
+    color: white;
+    font-size: 24px;
+    font-weight: 300;
+    border: none;
+}
+

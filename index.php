@@ -33,16 +33,16 @@
             <div class="topbar">Rejestracja<div class="exit-register">x</div></div>
             <img src="img/logo.png">
             <form method="POST" id="registry-form">
-                <input type="text" class="popup-input" id="reg1" name="name" placeholder="Imie">
-                <input type="text" class="popup-input" id="reg2" name="surname" placeholder="Nazwisko"><br>
-                <input type="text" class="popup-input" id="reg3" name="email" placeholder="Email"><br>
-                <input type="password" class="popup-input" id="reg4" name="password1" placeholder="Hasło">
-                <input type="password" class="popup-input" id="reg5" name="password2" placeholder="Potwierdź hasło"><br>
-                <input type="text" class="popup-input" id="reg6" name="street" placeholder="Ulica">
-                <input type="number" class="popup-input" id="reg7" name="nr" placeholder="Nr"><br>
-                <input type="text" class="popup-input" id="reg8" name="postcode" placeholder="Kod pocztowy">
-                <input type="text" class="popup-input" id="reg9" name="city" placeholder="Miasto"><br>
-                <input type="checkbox" id="check-terms"> Akceptuję regulamin korzystania z usług<br>
+                <input type="text" class="popup-input" id="reg1" name="name" placeholder="Imie" required>
+                <input type="text" class="popup-input" id="reg2" name="surname" placeholder="Nazwisko" required><br>
+                <input type="text" class="popup-input" id="reg3" name="email" placeholder="Email" required><br>
+                <input type="password" class="popup-input" id="reg4" name="password1" placeholder="Hasło" required>
+                <input type="password" class="popup-input" id="reg5" name="password2" placeholder="Potwierdź hasło" required><br>
+                <input type="text" class="popup-input" id="reg6" name="street" placeholder="Ulica" required>
+                <input type="number" class="popup-input" id="reg7" name="nr" placeholder="Nr" required><br>
+                <input type="text" class="popup-input" id="reg8" name="postcode" placeholder="Kod pocztowy" required>
+                <input type="text" class="popup-input" id="reg9" name="city" placeholder="Miasto" required><br>
+                <input type="checkbox" id="check-terms" required> Akceptuję regulamin korzystania z usług<br>
                 <input type="submit" class="submit_button" value="Zarejestruj">
                 <br><small></small>
             </form>
@@ -61,13 +61,28 @@
                     @$register_name = $_POST['name'];
                     @$register_surname = $_POST['surname'];
                     @$register_email = $_POST['email'];
-                    @$register_password = $_POST['password'];
+                    @$register_password = $_POST['password1'];
                     @$register_street = $_POST['street'];
                     @$register_number = $_POST['nr'];
                     @$register_postcode = $_POST['postcode'];
                     @$register_city = $_POST['city'];
+                    @$wallet = 50;
 
+                    @$register_password_hash = password_hash($register_password, PASSWORD_DEFAULT);
 
+                    $connect->query('SET NAMES utf8');
+                    $connect->query('SET CHARACTER_SET utf8_unicode_ci');
+
+                    if(empty($register_name))
+                    {
+                    }
+                    else
+                    {
+                        $zapytanie = "insert into users (password, name, surname, email, street, house_number, zip_code, city, wallet) values ('".$register_password."','".$register_name."', '".$register_surname."', '".$register_email."', '".$register_street."', '".$register_number."', '".$register_postcode."', '".$register_city."', '".$wallet."')";
+
+                        $result = $connect->query($zapytanie);
+                        $connect -> close();
+                    }
                 }
             ?>
         </div>
@@ -93,10 +108,12 @@
                 {
                     echo "Połączenie nawiązane";
 
+
                     @$login_email = $_POST['form_email'];
                     @$login_password = $_POST['form_password'];
+                    @$login_password_hash = password_hash($login_password, PASSWORD_DEFAULT);
 
-                    $sql = "SELECT * FROM users WHERE email='$login_email' AND password='$login_password'";
+                    @$sql = "SELECT * FROM users WHERE email='$login_email' AND password='$login_password'";
 
                     if($rezultat = @$connect->query($sql))
                     {
@@ -105,8 +122,15 @@
                         $users_number = $rezultat->num_rows;
                         if($users_number>0)
                         {
-                            header('Location: login.php');
+                            header('Location: panel.php');
                             $zalogowany = true;
+                            session_start();
+                            $_SESSION["session_login"] = true;
+
+                            while($row = mysqli_fetch_assoc($rezultat))
+                            {
+                                $_SESSION["user_id"] = $row['id_user'];
+                            }
                         }
                         else
                         {
@@ -124,16 +148,6 @@
                 }
             ?>
         </div>
-
-        <!-- Testing ksangjkaosngakjlmnsalkm -->
-        <!-- <script>
-                (function(){
-                    let login_error_popup = document.querySelector(".login_error");
-                    login_error_popup.style.display="block";
-                }());
-        </script> -->
-
-        <!-- ksngaksngmasngam -->
 
         <div class="all">
             <div class="sekcja1_all">
@@ -175,6 +189,5 @@
 
 
         </div>
-
     </body>
 </html>
