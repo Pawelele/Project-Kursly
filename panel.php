@@ -19,37 +19,47 @@
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
         <!-- Czcionka end -->
+
+        <script src="js/addcash.js" defer></script>
     </head>
     <?php
 
     session_start();
-    $_SESSION["session_login"]=true;
     if($_SESSION["session_login"]==true)
     {
         ?>
 
-
         <body>
+            <!-- Popup for adding money to wallet -->
+            <div id="cash_popup">
+                    <div class="topbar">Dodawanie środków<div class="exit-cash">x</div></div>
+                    <form action="money.php" method="POST">
+                        <input type="number" placeholder="Podaj kwotę" class="cash_input" name="addCashValue"> zł<br>
+                        <input type="submit" class="cash_submit" value="Dodaj">
+                    </form>
+            </div>
+
             <div class="pink"></div>
             <div class="sekcja1_all2">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-3">
                             <div class="sekcja1_lewo2">
-                                <img src="img/logo.png">
+                                <a href="panel.php"><img src="img/logo.png"></a>
                             </div>
                         </div>
                         <div class="col-md-9">
                             <div class="sekcja1_prawo2">
                                 <div class="menu">
-                                    <a href="panel.php">Strona główna</a>
-                                    <a href="kursy.php">Moje kursy</a>
-                                    <a href="kontakt.php">Kontakt</a>
+                                    <a href="panel.php" class="menu_option">Strona główna</a>
+                                    <a href="kursy.php" class="menu_option" id="xd">Moje kursy</a>
+                                    <!-- <a href="kontakt.php">Kontakt</a> -->
+                                    <form method="POST">
+                                        <input type="submit" name="logout" value="Wyloguj" class="menu_option" id="xd2">
+                                    </form>
                                 </div>
-
                             </div>
                         </div>
-
                         <?php
                             @$current_user = $_SESSION["user_id"];
 
@@ -63,7 +73,6 @@
                             else
                             {
                                 // echo "Połączenie nawiązane";
-
                                 @$sql = "SELECT * FROM users WHERE id_user='$current_user'";
 
                                 if($rezultat = @$connect->query($sql))
@@ -79,11 +88,8 @@
                                 echo '<div class="user_panel">';
                                 echo '<p id="user_panel_name">', $name, ' ', $surname, '</p>';
                                 echo '<p id="user_panel_cash">Stan konta: ',$cash,' zł' ,'</p>';
-                                echo '<p>Dodaj środki</p>';
-
-
+                                echo '<p id="user_panel_addCash">Dodaj środki</p>';
                                 echo '</div>';
-
                             }
                         ?>
                     </div>
@@ -102,7 +108,6 @@
                             else
                             {
                                 // echo "Połączenie nawiązane";
-
                                 @$sql = "SELECT * FROM courses";
 
                                 if($rezultat = @$connect->query($sql))
@@ -136,8 +141,6 @@
                                         echo        '</div>';
                                         echo    '</div>';
                                         echo '</div>';
-
-
                                     }
                                 }
                             }
@@ -167,20 +170,29 @@
                         </div> -->
 
             </div>
+            <!-- function for loging out -->
+            <?php
+                if(isset($_POST['logout']))
+                {
+                    $_SESSION = array();
+                    session_destroy();
 
-
+                    echo "<script type=\"text/javascript\">
+                    window.setTimeout(\"window.location.replace('index.php');\",1);
+                    </script>";
+                }
+            ?>
         </body>
-
-
-
 
         <?php
             }
             else
             {
                 // To change by php
-                echo "<script type=\"text/javascript\">
-               window.setTimeout(\"window.location.replace('bledne_logowanie.php');\",1);
-                </script>";
+            //     echo "<script type=\"text/javascript\">
+            //    window.setTimeout(\"window.location.replace('bledne_logowanie.php');\",1);
+            //     </script>";
+
+                header('Location: index.php');
             }
         ?>

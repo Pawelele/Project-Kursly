@@ -28,6 +28,11 @@
                 <div class="topbar">Błędne dane logowania<div class="exit-error">x</div></div>
                 <div class="login_again">Zaloguj ponownie</div>
         </div>
+        <!-- Aditional id for script to open only this popup -->
+        <div class="register_error">
+                <div class="topbar">Uzytkownik istnieje juz w bazie<div class="exit-error-register">x</div></div>
+                <div class="register_login">Zaloguj</div>
+        </div>
 
         <div class="register-popup">
             <div class="topbar">Rejestracja<div class="exit-register">x</div></div>
@@ -35,19 +40,26 @@
             <form method="POST" id="registry-form">
                 <input type="text" class="popup-input" id="reg1" name="name" placeholder="Imie" required>
                 <input type="text" class="popup-input" id="reg2" name="surname" placeholder="Nazwisko" required><br>
-                <input type="text" class="popup-input" id="reg3" name="email" placeholder="Email" required><br>
-                <input type="password" class="popup-input" id="reg4" name="password1" placeholder="Hasło" required>
+                <input type="text" class="popup-input" id="reg3" name="email" placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required><br>
+                <input type="password" class="popup-input" id="reg4" name="password1" placeholder="Hasło" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+  title="Musi zawierać co najmniej jeden numer, jedną duzą literę, jedną małą oraz co najmniej 8 znaków" required>
                 <input type="password" class="popup-input" id="reg5" name="password2" placeholder="Potwierdź hasło" required><br>
                 <input type="text" class="popup-input" id="reg6" name="street" placeholder="Ulica" required>
                 <input type="number" class="popup-input" id="reg7" name="nr" placeholder="Nr" required><br>
-                <input type="text" class="popup-input" id="reg8" name="postcode" placeholder="Kod pocztowy" required>
+                <input type="text" class="popup-input" id="reg8" name="postcode" placeholder="Kod pocztowy" pattern="[0-9]{2}\-[0-9]{3}" title="Podaj kod w formacie XX-XXX" required>
                 <input type="text" class="popup-input" id="reg9" name="city" placeholder="Miasto" required><br>
                 <input type="checkbox" id="check-terms" required> Akceptuję regulamin korzystania z usług<br>
                 <input type="submit" class="submit_button" value="Zarejestruj">
                 <br><small></small>
             </form>
             <?php
+                session_start();
                 require_once "connect.php";
+
+                if(@$_SESSION["session_login"]==true)
+                {
+                    header('Location: panel.php');
+                }
 
                 if($connect->connect_errno!=0)
                 {
@@ -56,7 +68,8 @@
                 }
                 else
                 {
-                    echo "Połączenie nawiązane";
+                    $register_showed = false;
+                    // echo "Połączenie nawiązane";
 
                     @$register_name = $_POST['name'];
                     @$register_surname = $_POST['surname'];
@@ -68,20 +81,51 @@
                     @$register_city = $_POST['city'];
                     @$wallet = 50;
 
-                    @$register_password_hash = password_hash($register_password, PASSWORD_DEFAULT);
+                    @$register_password_hash = password_hash("$register_password", PASSWORD_DEFAULT);
 
-                    $connect->query('SET NAMES utf8');
-                    $connect->query('SET CHARACTER_SET utf8_unicode_ci');
+                    // Check email in database. If existing don't register new user and show information
+                    @$sql_check_email = "SELECT * FROM users WHERE email='$register_email'";
 
-                    if(empty($register_name))
+                    if($rezultat_check = @$connect->query($sql_check_email))
                     {
-                    }
-                    else
-                    {
-                        $zapytanie = "insert into users (password, name, surname, email, street, house_number, zip_code, city, wallet) values ('".$register_password."','".$register_name."', '".$register_surname."', '".$register_email."', '".$register_street."', '".$register_number."', '".$register_postcode."', '".$register_city."', '".$wallet."')";
+                        @$existing_user;
+                        $users_number_reg = $rezultat_check->num_rows;
+                        if($users_number_reg>0)
+                        {
+                            while($row = mysqli_fetch_assoc($rezultat_check))
+                            {
+                                $existing_user = $row['email'];
+                            }
+                            if($register_showed == false)
+                            {
+                                echo '<script>(function(){',
+                                    'let register_error_popup1 = document.querySelector(".register_error");',
+                                    'register_error_popup1.style.display="block";',
+                                '}());</script>';
 
-                        $result = $connect->query($zapytanie);
-                        $connect -> close();
+                            }
+                            else
+                            {
+                                $register_showed = true;
+                            }
+
+                        }
+                        else
+                        {
+                            $connect->query('SET NAMES utf8');
+                            $connect->query('SET CHARACTER_SET utf8_unicode_ci');
+
+                            if(empty($register_name))
+                            {
+                            }
+                            else
+                            {
+                                $zapytanie = "insert into users (password, name, surname, email, street, house_number, zip_code, city, wallet) values ('".$register_password."','".$register_name."', '".$register_surname."', '".$register_email."', '".$register_street."', '".$register_number."', '".$register_postcode."', '".$register_city."', '".$wallet."')";
+
+                                $result = $connect->query($zapytanie);
+                                $connect -> close();
+                            }
+                        }
                     }
                 }
             ?>
@@ -91,11 +135,11 @@
             <div class="topbar">Logowanie<div class="exit-login">x</div></div>
             <img src="img/logo.png">
             <form method="POST">
-                <input type="text" class="popup-input" id="log1" name="form_email" placeholder="Email"><br>
-                <input type="password" class="popup-input" id="log2" name="form_password" placeholder="Hasło"><br>
+                <input type="text" class="popup-input" id="log1" name="form_email" placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required><br>
+                <input type="password" class="popup-input" id="log2" name="form_password" placeholder="Hasło" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+  title="Musi zawierać co najmniej jeden numer, jedną duzą literę, jedną małą oraz co najmniej 8 znaków" required><br>
                 <input type="submit" class="submit_button" id="submit_login" value="Zaloguj">
             </form>
-
             <?php
                 require_once "connect.php";
 
@@ -106,12 +150,12 @@
                 }
                 else
                 {
-                    echo "Połączenie nawiązane";
-
-
+                    // echo "Połączenie nawiązane";
                     @$login_email = $_POST['form_email'];
                     @$login_password = $_POST['form_password'];
-                    @$login_password_hash = password_hash($login_password, PASSWORD_DEFAULT);
+                    echo $login_email;
+
+                    @$login_password_hash = password_hash("$login_password", PASSWORD_DEFAULT);
 
                     @$sql = "SELECT * FROM users WHERE email='$login_email' AND password='$login_password'";
 
@@ -124,7 +168,6 @@
                         {
                             header('Location: panel.php');
                             $zalogowany = true;
-                            session_start();
                             $_SESSION["session_login"] = true;
 
                             while($row = mysqli_fetch_assoc($rezultat))
@@ -184,8 +227,6 @@
                     </div>
                 </div>
             </div>
-
-
 
 
         </div>
