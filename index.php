@@ -41,8 +41,7 @@
                 <input type="text" class="popup-input" id="reg1" name="name" placeholder="Imie" required>
                 <input type="text" class="popup-input" id="reg2" name="surname" placeholder="Nazwisko" required><br>
                 <input type="text" class="popup-input" id="reg3" name="email" placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required><br>
-                <input type="password" class="popup-input" id="reg4" name="password1" placeholder="Hasło" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-  title="Musi zawierać co najmniej jeden numer, jedną duzą literę, jedną małą oraz co najmniej 8 znaków" required>
+                <input type="password" class="popup-input" id="reg4" name="password1" placeholder="Hasło" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Musi zawierać co najmniej jeden numer, jedną duzą literę, jedną małą oraz co najmniej 8 znaków" required>
                 <input type="password" class="popup-input" id="reg5" name="password2" placeholder="Potwierdź hasło" required><br>
                 <input type="text" class="popup-input" id="reg6" name="street" placeholder="Ulica" required>
                 <input type="number" class="popup-input" id="reg7" name="nr" placeholder="Nr" required><br>
@@ -50,27 +49,19 @@
                 <input type="text" class="popup-input" id="reg9" name="city" placeholder="Miasto" required><br>
                 <input type="checkbox" id="check-terms" required> Akceptuję regulamin korzystania z usług<br>
                 <input type="submit" class="submit_button" value="Zarejestruj">
-                <br><small></small>
+                <br>
             </form>
             <?php
-                session_start();
                 require_once "connect.php";
-
-                if(@$_SESSION["session_login"]==true)
-                {
-                    header('Location: panel.php');
-                }
-
                 if($connect->connect_errno!=0)
                 {
-                    // echo "Error: ".$connect->connect_errno;
+                    //echo "Error: ".$connect->connect_errno;
                     echo "<br></nr>Błąd bazy danych";
                 }
                 else
                 {
                     $register_showed = false;
-                    // echo "Połączenie nawiązane";
-
+                    //echo "Połączenie nawiązane";
                     @$register_name = $_POST['name'];
                     @$register_surname = $_POST['surname'];
                     @$register_email = $_POST['email'];
@@ -81,9 +72,7 @@
                     @$register_city = $_POST['city'];
                     @$wallet = 50;
 
-                    @$register_password_hash = password_hash("$register_password", PASSWORD_DEFAULT);
-
-                    // Check email in database. If existing don't register new user and show information
+                    //Check email in database. If existing don't register new user and show information
                     @$sql_check_email = "SELECT * FROM users WHERE email='$register_email'";
 
                     if($rezultat_check = @$connect->query($sql_check_email))
@@ -121,74 +110,72 @@
                             else
                             {
                                 $zapytanie = "insert into users (password, name, surname, email, street, house_number, zip_code, city, wallet) values ('".$register_password."','".$register_name."', '".$register_surname."', '".$register_email."', '".$register_street."', '".$register_number."', '".$register_postcode."', '".$register_city."', '".$wallet."')";
-
                                 $result = $connect->query($zapytanie);
-                                $connect -> close();
                             }
                         }
                     }
                 }
             ?>
         </div>
-
         <div class="login-popup">
             <div class="topbar">Logowanie<div class="exit-login">x</div></div>
             <img src="img/logo.png">
             <form method="POST">
                 <input type="text" class="popup-input" id="log1" name="form_email" placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required><br>
-                <input type="password" class="popup-input" id="log2" name="form_password" placeholder="Hasło" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-  title="Musi zawierać co najmniej jeden numer, jedną duzą literę, jedną małą oraz co najmniej 8 znaków" required><br>
+                <input type="password" class="popup-input" id="log2" name="form_password" placeholder="Hasło" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Musi zawierać co najmniej jeden numer, jedną duzą literę, jedną małą oraz co najmniej 8 znaków" required><br>
                 <input type="submit" class="submit_button" id="submit_login" value="Zaloguj">
             </form>
             <?php
-                require_once "connect.php";
+            ob_start();
+            session_start();
 
-                if($connect->connect_errno!=0)
+            if(@$_SESSION["session_login"]==true)
+            {
+                header('Location: panel.php');
+            }
+
+            require_once "connect.php";
+
+            if($connect->connect_errno!=0)
+            {
+                echo "Error: ".$connect->connect_errno;
+            }
+            else
+            {
+                // echo "Połączenie nawiązane";
+                @$login_email = $_POST['form_email'];
+                @$login_password = $_POST['form_password'];
+
+                @$sql = "SELECT * FROM users WHERE email='$login_email' AND password='$login_password'";
+
+                if($rezultat = @$connect->query($sql))
                 {
-                    // echo "Error: ".$connect->connect_errno;
-                    echo "<br></nr>Błąd bazy danych";
-                }
-                else
-                {
-                    // echo "Połączenie nawiązane";
-                    @$login_email = $_POST['form_email'];
-                    @$login_password = $_POST['form_password'];
-                    echo $login_email;
-
-                    @$login_password_hash = password_hash("$login_password", PASSWORD_DEFAULT);
-
-                    @$sql = "SELECT * FROM users WHERE email='$login_email' AND password='$login_password'";
-
-                    if($rezultat = @$connect->query($sql))
+                    $zalogowany = false;
+                    $users_number = $rezultat->num_rows;
+                    if($users_number>0)
                     {
-                        $zalogowany = false;
+                        header('Location: panel.php');
+                        $zalogowany = true;
+                        $_SESSION["session_login"] = true;
 
-                        $users_number = $rezultat->num_rows;
-                        if($users_number>0)
+                        while($row = mysqli_fetch_assoc($rezultat))
                         {
-                            header('Location: panel.php');
-                            $zalogowany = true;
-                            $_SESSION["session_login"] = true;
-
-                            while($row = mysqli_fetch_assoc($rezultat))
-                            {
-                                $_SESSION["user_id"] = $row['id_user'];
-                            }
+                            $_SESSION["user_id"] = $row['id_user'];
                         }
-                        else
+                    }
+                    else
+                    {
+                        if($zalogowany == false && @$_POST['form_email'] != null)
                         {
-                            if($zalogowany == false && @$_POST['form_email'] != null)
-                            {
-                                // Wyświetlanie okna błędu logowania po wpisaniu błędnych danych w popupie logowania
-                                echo '<script>(function(){',
-                                    'let login_error_popup = document.querySelector(".login_error");',
-                                    'login_error_popup.style.display="block";',
-                                '}());</script>';
-
-                            }
+                            // Wyświetlanie okna błędu logowania po wpisaniu błędnych danych w popupie logowania
+                            echo '<script>(function(){',
+                                'let login_error_popup = document.querySelector(".login_error");',
+                                'login_error_popup.style.display="block";',
+                            '}());</script>';
                         }
                     }
                 }
+            }
             ?>
         </div>
 
@@ -227,8 +214,6 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
     </body>
 </html>

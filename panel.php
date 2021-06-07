@@ -23,7 +23,6 @@
         <script src="js/addcash.js" defer></script>
     </head>
     <?php
-
     session_start();
     if($_SESSION["session_login"]==true)
     {
@@ -188,11 +187,10 @@
             }
             else
             {
-                // To change by php
-            //     echo "<script type=\"text/javascript\">
-            //    window.setTimeout(\"window.location.replace('bledne_logowanie.php');\",1);
-            //     </script>";
 
-                header('Location: index.php');
+            echo "<script type=\"text/javascript\">
+            window.setTimeout(\"window.location.replace('index.php');\",1);
+            </script>";
+
             }
         ?>
