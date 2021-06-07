@@ -52,7 +52,6 @@
                                 <div class="menu">
                                     <a href="panel.php" class="menu_option">Strona główna</a>
                                     <a href="kursy.php" class="menu_option" id="xd">Moje kursy</a>
-                                    <!-- <a href="kontakt.php">Kontakt</a> -->
                                     <form method="POST">
                                         <input type="submit" name="logout" value="Wyloguj" class="menu_option" id="xd2">
                                     </form>
@@ -113,6 +112,8 @@
                                 {
                                     while($row = mysqli_fetch_assoc($rezultat))
                                     {
+                                        $course_id = $row['id_course'];
+                                        $course_img = $row['img'];
                                         $course_name = $row['name'];
                                         $course_description = $row['description'];
                                         $course_price = $row['price'];
@@ -123,7 +124,8 @@
                                         echo        '<div class="row">';
                                         echo            '<div class="col-md-2">';
                                         echo                '<div class="sekcja2_lewo2">';
-                                        echo                    '<img src="img/html.png">';
+                                        echo                    '<img src="',
+                                        $course_img ,'">';
                                         echo                '</div>';
                                         echo            '</div>';
                                         echo            '<div class="col-md-8">';
@@ -135,11 +137,56 @@
                                         echo                '<div class="sekcja2_prawo2">';
                                         echo                    '<p id="course_list_price">',$course_price,'</p>';
                                         echo                '</div>';
-                                        echo                '<button class="buy">Kup teraz</button>';
+                                        echo                '<form method="POST"><input type="radio" name="ordered" value=',
+                                        $course_id,' checked><input type="submit" class="buy" value="Kup teraz" name="submit"></form>';
                                         echo            '</div>';
                                         echo        '</div>';
                                         echo    '</div>';
                                         echo '</div>';
+                                    }
+                                }
+                            }
+                        ?>
+                        <?php
+                            if(isset($_POST['submit']))
+                            {
+                                $logged_user = $_SESSION["user_id"];
+                                // Checking wallet status before order
+                                $wallet_status;
+                                @$sql_wallet = "SELECT * FROM users where id_user = $logged_user";
+                                if($rezultat_wallet = @$connect->query($sql_wallet))
+                                {
+                                    while($row = mysqli_fetch_assoc($rezultat_wallet))
+                                    {
+                                        $wallet_status = $row['wallet'];
+                                    }
+                                }
+                                // Match the course from database, and place order
+                                @$sql_order = "SELECT * FROM courses";
+
+                                if($rezultat = @$connect->query($sql_order))
+                                {
+                                    while($row = mysqli_fetch_assoc($rezultat))
+                                    {
+                                        $actual_course = $row['id_course'];
+
+                                        if($actual_course == @$_POST['ordered'])
+                                        {
+                                            $course_price = $row['price'];
+
+                                            if($wallet_status > $course_price)
+                                            {
+                                                $zapytanie = "insert into orders (id_user, id_course, price) values ('".$logged_user."','".$actual_course."', '".$course_price."')";
+
+                                                $result = $connect->query($zapytanie);
+
+                                                $new_wallet = $wallet_status - $course_price;
+
+                                                $zapytanie_cash = "update users set wallet = $new_wallet";
+
+                                                $result_cash = $connect->query($zapytanie_cash);
+                                            }
+                                        }
                                     }
                                 }
                             }

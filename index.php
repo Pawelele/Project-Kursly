@@ -152,14 +152,14 @@
 					$users_number = $rezultat->num_rows;
 					if($users_number>0)
 					{
-						header("Location: panel.php");
-						$zalogowany = true;
-						$_SESSION["session_login"] = true;
-
 						while($row = mysqli_fetch_assoc($rezultat))
 						{
 							$_SESSION["user_id"] = $row['id_user'];
 						}
+						header("Location: panel.php");
+						$zalogowany = true;
+						$_SESSION["session_login"] = true;
+
 					}
 					else
 					{
