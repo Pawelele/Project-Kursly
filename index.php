@@ -50,7 +50,7 @@
 				<input type="text" class="popup-input" id="reg9" name="city" placeholder="Miasto" required><br>
 				<input type="checkbox" id="check-terms" required> Akceptuję regulamin korzystania z usług<br>
 				<input type="submit" class="submit_button" value="Zarejestruj">
-				<br>
+				<br><small></small>
 			</form>
 			<?php
 			session_start();
