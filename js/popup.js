@@ -66,7 +66,7 @@ exitError.addEventListener("click",function(){
 });
 
 
-// register error popup to fix
+// register error popup
 
 let register_error_popup = document.querySelector(".register_error");
 let register_error_button = document.querySelector(".register_login");
@@ -74,13 +74,13 @@ let register_error_exit = document.querySelector(".exit-error-register");
 
 register_error_exit.addEventListener("click", function(){
     register_error_popup.style.display = "none";
-})
+});
 
 register_error_button.addEventListener("click", function(){
     popupLogin.style.display="block";
     register_error_popup.style.display="none";
     all.style.filter="blur(8px)";
-})
+});
 
 
 

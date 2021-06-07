@@ -37,6 +37,11 @@
                         <input type="submit" class="cash_submit" value="Dodaj">
                     </form>
             </div>
+            <!-- No money in wallet popup -->
+            <div id="noMoney_popup">
+                    <div class="topbar">Brak środków w portfelu<div class="exit_noMoney">x</div></div>
+                    <div class="add_money">Dodaj środki</div>
+            </div>
 
             <div class="pink"></div>
             <div class="sekcja1_all2">
@@ -203,6 +208,15 @@
                                                     $zapytanie_cash = "update users set wallet = $new_wallet";
 
                                                     $result_cash = $connect->query($zapytanie_cash);
+
+                                                    $_POST = array();
+                                                }
+                                                else
+                                                {
+                                                    echo '<script>(function(){',
+                                                        'let noMoneyPopupHtml = document.querySelector("#noMoney_popup");',
+                                                        'noMoneyPopupHtml.style.display="block";',
+                                                        '}());</script>';
                                                 }
                                             }
                                         }
