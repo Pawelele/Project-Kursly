@@ -188,9 +188,9 @@
             else
             {
 
-            echo "<script type=\"text/javascript\">
-            window.setTimeout(\"window.location.replace('index.php');\",1);
-            </script>";
+                echo "<script type=\"text/javascript\">
+                window.setTimeout(\"window.location.replace('index.php');\",1);
+                </script>";
 
             }
         ?>
