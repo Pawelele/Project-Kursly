@@ -34,4 +34,11 @@ noMoney_button.addEventListener("click",function(){
 
 // Course already bought popup
 
+let courseBought_popup = document.querySelector("#courseBought_popup");
+let courseBought_exit = document.querySelector(".exit_courseBought");
+
+courseBought_exit.addEventListener("click",function(){
+    courseBought_popup.style.display="none";
+});
+
 

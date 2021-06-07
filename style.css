@@ -180,7 +180,7 @@ body
     font-size: 20px;
     font-weight: 400;
 }
-.exit-register, .exit-login, .exit-error, .exit-cash, .exit-error-register, .exit_noMoney
+.exit-register, .exit-login, .exit-error, .exit-cash, .exit-error-register, .exit_noMoney, .exit_courseBought
 {
     color:white;
     font-size: 27px;
@@ -546,4 +546,21 @@ form input.error
     color: white;
     margin: 0 auto;
     margin-top:90px;
+}
+#courseBought_popup
+{
+    display: none;
+    position: absolute;
+    height: 300px;
+    width: 600px;
+    background-color: #FFFFFF;
+    text-align: center;
+    z-index: 99;
+    border-radius: 10px;
+    box-shadow: 0px 10px 8px #00000029;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
 }

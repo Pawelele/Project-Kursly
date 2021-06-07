@@ -43,6 +43,12 @@
                     <div class="add_money">Dodaj środki</div>
             </div>
 
+            <div id="courseBought_popup">
+                    <div class="topbar">Kurs juz zakupiony<div class="exit_courseBought">x</div></div>
+                    <a href="library.php"><div class="add_money">Moje kursy</div></a>
+            </div>
+
+
             <div class="pink"></div>
             <div class="sekcja1_all2">
                 <div class="container">
@@ -222,36 +228,15 @@
                                         }
                                     }
                                 }
-                                else
+                                else if($check == true)
                                 {
-                                    echo "Masz ju ten kurs";
+                                    echo '<script>(function(){',
+                                        'let courseBoughtPopupHtml = document.querySelector("#courseBought_popup");',
+                                        'courseBoughtPopupHtml.style.display="block";',
+                                        '}());</script>';
                                 }
                             }
                         ?>
-                        <!-- For changes in design in future, because above this displays in php echo -->
-                        <!-- <div class="course_list">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <div class="sekcja2_lewo2">
-                                            <img src="img/html.png">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <div class="sekcja2_srodek2">
-                                             <p id="course_list_title">XXX</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="sekcja2_prawo2">
-                                            <p id="course_list_price">129zł</p>
-                                        </div>
-                                        <button class="buy">Kup teraz</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
-
             </div>
             <!-- function for loging out -->
             <?php
