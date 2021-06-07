@@ -80,6 +80,7 @@
 				@$register_city = $_POST['city'];
 				@$wallet = 50;
 
+				@$password_hash = password_hash($register_password, PASSWORD_DEFAULT);
 				//Check email in database. If existing don't register new user and show information
 				@$sql_check_email = "SELECT * FROM users WHERE email='$register_email'";
 
@@ -114,7 +115,7 @@
 						}
 						else
 						{
-							$zapytanie = "insert into users (password, name, surname, email, street, house_number, zip_code, city, wallet) values ('".$register_password."','".$register_name."', '".$register_surname."', '".$register_email."', '".$register_street."', '".$register_number."', '".$register_postcode."', '".$register_city."', '".$wallet."')";
+							$zapytanie = "insert into users (password, name, surname, email, street, house_number, zip_code, city, wallet) values ('".$password_hash."','".$register_name."', '".$register_surname."', '".$register_email."', '".$register_street."', '".$register_number."', '".$register_postcode."', '".$register_city."', '".$wallet."')";
 
 							$result = $connect->query($zapytanie);
 						}
@@ -140,11 +141,13 @@
 			}
 			else
 			{
+				// uwaga zmieniam
+				// hehehe
 				// echo "Połączenie nawiązane";
 				@$login_email = $_POST['form_email'];
 				@$login_password = $_POST['form_password'];
 
-				@$sql = "SELECT * FROM users WHERE email='$login_email' AND password='$login_password'";
+				@$sql = "SELECT * FROM users WHERE email='$login_email'";
 
 				if($rezultat = @$connect->query($sql))
 				{
@@ -154,12 +157,14 @@
 					{
 						while($row = mysqli_fetch_assoc($rezultat))
 						{
-							$_SESSION["user_id"] = $row['id_user'];
+							if(password_verify($login_password,$row['password']))
+							{
+								$_SESSION["user_id"] = $row['id_user'];
+								header("Location: panel.php");
+								$zalogowany = true;
+								$_SESSION["session_login"] = true;
+							}
 						}
-						header("Location: panel.php");
-						$zalogowany = true;
-						$_SESSION["session_login"] = true;
-
 					}
 					else
 					{

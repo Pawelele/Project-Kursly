@@ -161,7 +161,8 @@
                         <?php
                             if(isset($_POST['submit']))
                             {
-                                sleep(1);
+                                // issue with wallet status
+                                sleep(2);
                                 $logged_user = $_SESSION["user_id"];
                                 $check = false;
 
