@@ -150,44 +150,67 @@
                         <?php
                             if(isset($_POST['submit']))
                             {
+                                sleep(1);
                                 $logged_user = $_SESSION["user_id"];
-                                // Checking wallet status before order
-                                $wallet_status;
-                                @$sql_wallet = "SELECT * FROM users where id_user = $logged_user";
-                                if($rezultat_wallet = @$connect->query($sql_wallet))
+                                $check = false;
+
+
+                                @$sql_bought_courses = "SELECT * FROM orders where id_user = $logged_user";
+                                if($rezultat_bought= @$connect->query($sql_bought_courses))
                                 {
-                                    while($row = mysqli_fetch_assoc($rezultat_wallet))
+                                    while($row = mysqli_fetch_assoc($rezultat_bought))
                                     {
-                                        $wallet_status = $row['wallet'];
+                                        if($row['id_course'] == @$_POST['ordered'])
+                                        {
+                                            $check = true;
+                                        }
                                     }
                                 }
-                                // Match the course from database, and place order
-                                @$sql_order = "SELECT * FROM courses";
-
-                                if($rezultat = @$connect->query($sql_order))
+                                // Add course only if user don't have one
+                                if($check == false)
                                 {
-                                    while($row = mysqli_fetch_assoc($rezultat))
+                                    // Checking wallet status before order
+                                    $wallet_status;
+                                    @$sql_wallet = "SELECT * FROM users where id_user = $logged_user";
+                                    if($rezultat_wallet = @$connect->query($sql_wallet))
                                     {
-                                        $actual_course = $row['id_course'];
-
-                                        if($actual_course == @$_POST['ordered'])
+                                        while($row = mysqli_fetch_assoc($rezultat_wallet))
                                         {
-                                            $course_price = $row['price'];
+                                            $wallet_status = $row['wallet'];
+                                        }
+                                    }
+                                    // Match the course from database, and place order
+                                    @$sql_order = "SELECT * FROM courses";
 
-                                            if($wallet_status > $course_price)
+                                    if($rezultat = @$connect->query($sql_order))
+                                    {
+                                        while($row = mysqli_fetch_assoc($rezultat))
+                                        {
+                                            $actual_course = $row['id_course'];
+
+                                            if($actual_course == @$_POST['ordered'])
                                             {
-                                                $zapytanie = "insert into orders (id_user, id_course, price) values ('".$logged_user."','".$actual_course."', '".$course_price."')";
+                                                $course_price = $row['price'];
 
-                                                $result = $connect->query($zapytanie);
+                                                if($wallet_status > $course_price)
+                                                {
+                                                    $zapytanie = "insert into orders (id_user, id_course, price) values ('".$logged_user."','".$actual_course."', '".$course_price."')";
 
-                                                $new_wallet = $wallet_status - $course_price;
+                                                    $result = $connect->query($zapytanie);
 
-                                                $zapytanie_cash = "update users set wallet = $new_wallet";
+                                                    $new_wallet = $wallet_status - $course_price;
 
-                                                $result_cash = $connect->query($zapytanie_cash);
+                                                    $zapytanie_cash = "update users set wallet = $new_wallet";
+
+                                                    $result_cash = $connect->query($zapytanie_cash);
+                                                }
                                             }
                                         }
                                     }
+                                }
+                                else
+                                {
+                                    echo "Masz ju ten kurs";
                                 }
                             }
                         ?>
