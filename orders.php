@@ -50,8 +50,8 @@
                         <div class="col-md-9">
                             <div class="sekcja1_prawo2">
                                 <div class="menu">
-                                    <a href="panel.php" class="menu_option">Strona główna</a>
-                                    <a href="kursy.php" class="menu_option" id="xd">Moje kursy</a>
+                                    <a href="contact.php" class="menu_option">Kontakt</a>
+                                    <a href="orders.php" class="menu_option" id="xd">Moje kursy</a>
                                     <form method="POST">
                                         <input type="submit" name="logout" value="Wyloguj" class="menu_option" id="xd2">
                                     </form>

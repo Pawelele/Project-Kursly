@@ -386,7 +386,6 @@ form input.error
     font-weight: 200;
 }
 
-
 .course_list
 {
     margin: 0 auto;
@@ -416,12 +415,6 @@ form input.error
     font-size: 31px;
     font-weight: 600;
     color: #262626;
-}
-.sekcja2_all2
-{
-
-
-
 }
 .sekcja2_lewo2
 {
@@ -563,4 +556,8 @@ form input.error
     top: 0;
     bottom: 0;
     margin: auto;
+}
+#courseRadio
+{
+    display: none;
 }

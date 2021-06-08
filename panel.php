@@ -45,7 +45,7 @@
 
             <div id="courseBought_popup">
                     <div class="topbar">Kurs juz zakupiony<div class="exit_courseBought">x</div></div>
-                    <a href="library.php"><div class="add_money">Moje kursy</div></a>
+                    <a href="orders.php"><div class="add_money">Moje kursy</div></a>
             </div>
 
 
@@ -61,7 +61,7 @@
                         <div class="col-md-9">
                             <div class="sekcja1_prawo2">
                                 <div class="menu">
-                                    <a href="panel.php" class="menu_option">Strona główna</a>
+                                    <a href="contact.php" class="menu_option">Kontakt</a>
                                     <a href="orders.php" class="menu_option" id="xd">Moje kursy</a>
                                     <form method="POST">
                                         <input type="submit" name="logout" value="Wyloguj" class="menu_option" id="xd2">
@@ -148,7 +148,7 @@
                                         echo                '<div class="sekcja2_prawo2">';
                                         echo                    '<p id="course_list_price">',$course_price,'</p>';
                                         echo                '</div>';
-                                        echo                '<form method="POST"><input type="radio" name="ordered" value=',
+                                        echo                '<form method="POST"><input type="radio" id="courseRadio" name="ordered" value=',
                                         $course_id,' checked><input type="submit" class="buy" value="Kup teraz" name="submit"></form>';
                                         echo            '</div>';
                                         echo        '</div>';
