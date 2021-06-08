@@ -180,7 +180,7 @@ body
     font-size: 20px;
     font-weight: 400;
 }
-.exit-register, .exit-login, .exit-error, .exit-cash, .exit-error-register, .exit_noMoney, .exit_courseBought
+.exit-register, .exit-login, .exit-error, .exit-cash, .exit-error-register, .exit_noMoney, .exit_courseBought, .exit-register-success
 {
     color:white;
     font-size: 27px;
@@ -326,12 +326,11 @@ form input.error
 }
 .menu
 {
-    position: absolute;
-    right: 0px;
     margin-top: 42px;
 }
 .menu_option
 {
+    float: right;
     margin-right: 67px;
     font-size: 23px;
     color: #262626;
@@ -339,15 +338,6 @@ form input.error
     margin-left: 50px;
     background-color:transparent;
     border: none;
-}
-#xd
-{
-    float:left;
-}
-#xd2
-{
- float:right;
- display: block;
 }
 .pink
 {
@@ -560,4 +550,51 @@ form input.error
 #courseRadio
 {
     display: none;
+}
+
+.sekcja2_all2
+{
+    text-align: center;
+}
+/* ul and li for navbar */
+ul
+{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+li {
+    display: inline;
+  }
+
+.register_success
+{
+    display: none;
+    position: absolute;
+    height: 300px;
+    width: 600px;
+    background-color: #FFFFFF;
+    text-align: center;
+    z-index: 99;
+    border-radius: 10px;
+    box-shadow: 0px 10px 8px #00000029;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+.login_success
+{
+    width: 208px;
+    height: 67px;
+    line-height: 67px;
+    background: #E432A9;
+    box-shadow: 0px 10px 9px #00000029;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 20px;
+    color: white;
+    margin: 0 auto;
+    margin-top:90px;
 }

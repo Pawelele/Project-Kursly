@@ -96,59 +96,17 @@
                 </div>
             </div>
             <div class="sekcja2_all2">
-                    <!-- Listing courses from database -->
-                    <?php
-                            @$current_user = $_SESSION["user_id"];
-                            require_once "connect.php";
+                    <!-- Contact form -->
+                    <form method="post" action="sendForm.php">
+                        <input type="text" name="name" class="popup-input" placeholder="Imię i naziwsko" required><br>
+                        <input type="text" name="email" class="popup-input" placeholder="Email" required><br>
+                        <input type="text" name="message" class="popup-input" placeholder="Wiadomość" required><br>
 
-                            if($connect->connect_errno!=0)
-                            {
-                                // echo "Error: ".$connect->connect_errno;
-                                echo "<br></nr>Błąd bazy danych";
-                            }
-                            else
-                            {
-                                // echo "Połączenie nawiązane";
-                                @$sql = "SELECT * FROM orders join courses on orders.id_course = courses.id_course where id_user = $current_user";
+                        <input type="submit" class="submit_button" value="Wyślij">
+                    </form>
 
-                                if($rezultat = @$connect->query($sql))
-                                {
-                                    while($row = mysqli_fetch_assoc($rezultat))
-                                    {
-                                        $course_id = $row['id_course'];
-                                        $course_img = $row['img'];
-                                        $course_name = $row['name'];
-                                        $course_description = $row['description'];
-                                        $course_price = $row['price'];
-
-
-                                        echo    '<div class="course_list">';
-                                        echo    '<div class="container">';
-                                        echo        '<div class="row">';
-                                        echo            '<div class="col-md-2">';
-                                        echo                '<div class="sekcja2_lewo2">';
-                                        echo                    '<img src="',
-                                        $course_img ,'">';
-                                        echo                '</div>';
-                                        echo            '</div>';
-                                        echo            '<div class="col-md-8">';
-                                        echo                '<div class="sekcja2_srodek2">';
-                                        echo                    '<p id="course_list_title">',$course_name,'</p>';
-                                        echo                '</div>';
-                                        echo            '</div>';
-                                        echo            '<div class="col-md-2">';
-                                        echo                '<div class="sekcja2_prawo2">';
-                                        echo                    '<p id="course_list_price">&#x2714;</p>';
-                                        echo                '</div>';
-                                        echo            '</div>';
-                                        echo        '</div>';
-                                        echo    '</div>';
-                                        echo '</div>';
-                                    }
-                                }
-                            }
-                        ?>
             </div>
+
             <!-- function for loging out -->
             <?php
                 if(isset($_POST['logout']))

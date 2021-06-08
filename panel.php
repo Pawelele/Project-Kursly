@@ -61,11 +61,13 @@
                         <div class="col-md-9">
                             <div class="sekcja1_prawo2">
                                 <div class="menu">
-                                    <a href="contact.php" class="menu_option">Kontakt</a>
-                                    <a href="orders.php" class="menu_option" id="xd">Moje kursy</a>
-                                    <form method="POST">
-                                        <input type="submit" name="logout" value="Wyloguj" class="menu_option" id="xd2">
-                                    </form>
+                                    <ul>
+                                        <li><form method="POST">
+                                            <input type="submit" name="logout" value="Wyloguj" class="menu_option">
+                                        </form></li>
+                                        <li><a href="contact.php" class="menu_option">Kontakt</a></li>
+                                        <li><a href="orders.php" class="menu_option">Moje kursy</a></li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -264,3 +266,4 @@
 
             }
         ?>
+</html>

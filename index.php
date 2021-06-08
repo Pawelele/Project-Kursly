@@ -35,6 +35,11 @@
 			<div class="register_login">Zaloguj</div>
 		</div>
 
+		<div class="register_success">
+			<div class="topbar">Rejestracja udana<div class="exit-register-success">x</div></div>
+			<div class="login_success">Zaloguj</div>
+		</div>
+
 		<div class="register-popup">
 			<div class="topbar">Rejestracja<div class="exit-register">x</div></div>
 			<img src="img/logo.png">
@@ -118,6 +123,11 @@
 							$zapytanie = "insert into users (password, name, surname, email, street, house_number, zip_code, city, wallet) values ('".$password_hash."','".$register_name."', '".$register_surname."', '".$register_email."', '".$register_street."', '".$register_number."', '".$register_postcode."', '".$register_city."', '".$wallet."')";
 
 							$result = $connect->query($zapytanie);
+
+							echo '<script>(function(){',
+								'let register_success_popup1 = document.querySelector(".register_success");',
+								'register_success_popup1.style.display="block";',
+								'}());</script>';
 						}
 					}
 				}

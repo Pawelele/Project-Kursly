@@ -83,5 +83,19 @@ register_error_button.addEventListener("click", function(){
 });
 
 
+// register success popup
+let register_sucess_popup = document.querySelector(".register_success");
+let register_success_button = document.querySelector(".login_success");
+let register_success_exit = document.querySelector(".exit-register-success");
+
+register_success_exit.addEventListener("click", function(){
+    register_sucess_popup.style.display = "none";
+});
+
+register_success_button.addEventListener("click", function(){
+    popupLogin.style.display = "block";
+    register_sucess_popup.style.display="none";
+    all.style.filter="blur(8px)";
+});
 
 
