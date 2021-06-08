@@ -37,17 +37,6 @@
                         <input type="submit" class="cash_submit" value="Dodaj">
                     </form>
             </div>
-            <!-- No money in wallet popup -->
-            <div id="noMoney_popup">
-                    <div class="topbar">Brak środków w portfelu<div class="exit_noMoney">x</div></div>
-                    <div class="add_money">Dodaj środki</div>
-            </div>
-
-            <div id="courseBought_popup">
-                    <div class="topbar">Kurs juz zakupiony<div class="exit_courseBought">x</div></div>
-                    <a href="library.php"><div class="add_money">Moje kursy</div></a>
-            </div>
-
 
             <div class="pink"></div>
             <div class="sekcja1_all2">
@@ -62,7 +51,7 @@
                             <div class="sekcja1_prawo2">
                                 <div class="menu">
                                     <a href="panel.php" class="menu_option">Strona główna</a>
-                                    <a href="orders.php" class="menu_option" id="xd">Moje kursy</a>
+                                    <a href="kursy.php" class="menu_option" id="xd">Moje kursy</a>
                                     <form method="POST">
                                         <input type="submit" name="logout" value="Wyloguj" class="menu_option" id="xd2">
                                     </form>
@@ -107,6 +96,7 @@
             <div class="sekcja2_all2">
                     <!-- Listing courses from database -->
                     <?php
+                            @$current_user = $_SESSION["user_id"];
                             require_once "connect.php";
 
                             if($connect->connect_errno!=0)
@@ -117,7 +107,7 @@
                             else
                             {
                                 // echo "Połączenie nawiązane";
-                                @$sql = "SELECT * FROM courses";
+                                @$sql = "SELECT * FROM orders join courses on orders.id_course = courses.id_course where id_user = $current_user";
 
                                 if($rezultat = @$connect->query($sql))
                                 {
@@ -146,10 +136,8 @@
                                         echo            '</div>';
                                         echo            '<div class="col-md-2">';
                                         echo                '<div class="sekcja2_prawo2">';
-                                        echo                    '<p id="course_list_price">',$course_price,'</p>';
+                                        echo                    '<p id="course_list_price">&#x2714;</p>';
                                         echo                '</div>';
-                                        echo                '<form method="POST"><input type="radio" name="ordered" value=',
-                                        $course_id,' checked><input type="submit" class="buy" value="Kup teraz" name="submit"></form>';
                                         echo            '</div>';
                                         echo        '</div>';
                                         echo    '</div>';
