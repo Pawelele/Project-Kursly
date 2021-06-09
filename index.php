@@ -31,7 +31,7 @@
 		</div>
 		<!-- Aditional id for script to open only this popup -->
 		<div class="register_error">
-			<div class="topbar">Uzytkownik istnieje juz w bazie<div class="exit-error-register">x</div></div>
+			<div class="topbar">Uzytkownik juz istnieje<div class="exit-error-register">x</div></div>
 			<div class="register_login">Zaloguj</div>
 		</div>
 

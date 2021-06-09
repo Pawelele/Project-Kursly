@@ -122,7 +122,7 @@
                                         $course_price = $row['price'];
 
 
-                                        echo    '<div class="course_list">';
+                                        echo    '<div class="course_list" id="course_list_ordered">';
                                         echo    '<div class="container">';
                                         echo        '<div class="row">';
                                         echo            '<div class="col-md-2">';
