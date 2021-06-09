@@ -73,7 +73,6 @@
                         </div>
                         <?php
                             @$current_user = $_SESSION["user_id"];
-
                             require_once "connect.php";
 
                             if($connect->connect_errno!=0)
@@ -164,7 +163,6 @@
                             if(isset($_POST['submit']))
                             {
                                 // issue with wallet status
-                                sleep(2);
                                 $logged_user = $_SESSION["user_id"];
                                 $check = false;
 
@@ -219,6 +217,8 @@
                                                     $result_cash = $connect->query($zapytanie_cash);
 
                                                     $_POST = array();
+                                                    $_SESSION['fix'] = true;
+                                                    echo "<script>window.location.reload();</script>";
                                                 }
                                                 else
                                                 {
@@ -233,10 +233,19 @@
                                 }
                                 else if($check == true)
                                 {
-                                    echo '<script>(function(){',
+                                    if($_SESSION['fix'] != true)
+                                    {
+                                        echo '<script>(function(){',
                                         'let courseBoughtPopupHtml = document.querySelector("#courseBought_popup");',
                                         'courseBoughtPopupHtml.style.display="block";',
                                         '}());</script>';
+
+                                        $_POST['ordered'] = 0;
+                                    }
+                                    else
+                                    {
+                                        $_SESSION['fix'] = false;
+                                    }
                                 }
                             }
                         ?>

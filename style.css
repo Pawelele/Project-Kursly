@@ -190,7 +190,7 @@ body
     margin-right: 10px;
     margin-left: -30px;
 }
-.exit-register:hover, .exit-login:hover, .exit-error:hover, .exit-register-success:hover, .exit-error-register:hover, .user_panel_addCash:hover, .exit-cash:hover, .exit_noMoney:hover, .exit_courseBought:hover
+.exit-register:hover, .exit-login:hover, .exit-error:hover, .exit-register-success:hover, .exit-error-register:hover, #user_panel_addCash:hover, .exit-cash:hover, .exit_noMoney:hover, .exit_courseBought:hover
 {
     cursor:pointer;
 }
