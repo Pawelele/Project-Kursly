@@ -335,7 +335,7 @@ form input.error
     font-size: 23px;
     color: #262626;
     font-weight: 600;
-    margin-left: 50px;
+    /* margin-left: 50px; */
     background-color:transparent;
     border: none;
 }
@@ -732,6 +732,10 @@ li {
         margin: 0 auto;
         margin-top: 19px;
     }
+    #added_cash
+    {
+        width: 300px;
+    }
 }
 
 @media (max-width: 470px)
@@ -767,6 +771,10 @@ li {
     .user_panel
     {
         width: 300px;
+    }
+    .menu_option
+    {
+        margin-right: 20px;
     }
 
 }
