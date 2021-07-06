@@ -1,0 +1,5 @@
+Backup of database using mysqldump
+
+Database name: IA_Database
+Database user: IA_agent
+Database password: Inzynieria_Aplikacji_123
